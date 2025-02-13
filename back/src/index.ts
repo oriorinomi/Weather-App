@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { createConnection } from "./db";
+import router from "./router";
 
 dotenv.config();
 const app = express();
@@ -9,9 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-	res.send("Serveur Express en TypeScript 🚀");
-});
+app.use("/api", router);
 
 createConnection(); // Connexion MySQL
 

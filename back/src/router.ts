@@ -1,21 +1,21 @@
 import express from "express";
 
-const app = express();
-app.use(express.json());
-
 const router = express.Router();
+const app = express();
 
 import weatherActions from "./modules/weather/weatherActions";
 
-router.get("/", weatherActions.getWeather);
-router.get("/:id", weatherActions.getWeatherById);
-router.post("/", weatherActions.addCity);
-router.put("/:id", weatherActions.updateCity);
-router.delete("/:id", weatherActions.deleteCity);
-
+// Routes principales
+router.get("/weather", weatherActions.getAllWeather);
 router.get("/weather/:id", weatherActions.getWeatherById);
-router.get("/weather/:id/forecast", weatherActions.getWeatherFor7Days);
 router.post("/weather", weatherActions.addCity);
+router.put("/weather/:id", weatherActions.updateCity);
+router.delete("/weather/:id", weatherActions.deleteCity);
+
+// Routes pour la météo et les prévisions
+router.get("/weather/:id/forecast", weatherActions.getWeatherFor7Days);
 router.post("/weather/forecast", weatherActions.addWeatherForecast);
+
+app.use("/api", router);
 
 export default router;
